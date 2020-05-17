@@ -127,8 +127,8 @@ def detect_motion(frameCount):
 				box_y = detection[4] * image_height
 				box_width = detection[5] * image_width
 				box_height = detection[6] * image_height
-				cv2.rectangle(image, (int(box_x), int(box_y)), (int(box_width), int(box_height)), (23, 230, 210), thickness=1)
-				cv2.putText(image,class_name ,(int(box_x), int(box_y+.05*image_height)),cv2.FONT_HERSHEY_SIMPLEX,(.005*image_width),(0, 0, 255))
+				cv2.rectangle(image, (int(box_x), int(box_y)), (int(box_width), int(box_height)), (23, 230, 210), thickness=2)
+				cv2.putText(image, class_name ,(int(box_x), int(box_y+.05*image_height)), cv2.FONT_HERSHEY_SIMPLEX,(.002*image_width),(255, 0, 255))
 
 
 		# acquire the lock, set the output frame, and release the
