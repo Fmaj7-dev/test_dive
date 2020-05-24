@@ -77,38 +77,7 @@ def detect_motion(frameCount):
 	while True:
 		# read the next frame from the video stream, resize it,
 		# convert the frame to grayscale, and blur it
-		frame = vs.read()
-		"""frame = imutils.resize(frame, width=400)
-		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-		gray = cv2.GaussianBlur(gray, (7, 7), 0)
-
-		# grab the current timestamp and draw it on the frame
-		timestamp = datetime.datetime.now()
-		cv2.putText(frame, timestamp.strftime(
-			"%A %d %B %Y %I:%M:%S%p"), (10, frame.shape[0] - 10),
-			cv2.FONT_HERSHEY_SIMPLEX, 0.35, (0, 0, 255), 1)
-
-		# if the total number of frames has reached a sufficient
-		# number to construct a reasonable background model, then
-		# continue to process the frame
-		if total > frameCount:
-			# detect motion in the image
-			motion = md.detect(gray)
-
-			# cehck to see if motion was found in the frame
-			if motion is not None:
-				# unpack the tuple and draw the box surrounding the
-				# "motion area" on the output frame
-				(thresh, (minX, minY, maxX, maxY)) = motion
-				cv2.rectangle(frame, (minX, minY), (maxX, maxY),
-					(0, 0, 255), 2)
-		
-		# update the background model and increment the total number
-		# of frames read thus far
-		md.update(gray)
-		total += 1"""
-
-		image = frame
+		image = vs.read()
 
 		image_height, image_width, _ = image.shape
 
@@ -122,13 +91,13 @@ def detect_motion(frameCount):
 			if confidence > .5:
 				class_id = detection[1]
 				class_name=id_class_name(class_id,classNames)
-				print(str(str(class_id) + " " + str(detection[2])  + " " + class_name))
+				#print(str(str(class_id) + " " + str(detection[2])  + " " + class_name))
 				box_x = detection[3] * image_width
 				box_y = detection[4] * image_height
 				box_width = detection[5] * image_width
 				box_height = detection[6] * image_height
 				cv2.rectangle(image, (int(box_x), int(box_y)), (int(box_width), int(box_height)), (23, 230, 210), thickness=2)
-				cv2.putText(image, class_name ,(int(box_x), int(box_y+.05*image_height)), cv2.FONT_HERSHEY_SIMPLEX,(.002*image_width),(255, 0, 255))
+				cv2.putText(image, class_name ,(int(box_x), int(box_y+.05*image_height)), cv2.FONT_HERSHEY_SIMPLEX,(.002*image_width),(255, 128, 255), thickness=2)
 
 
 		# acquire the lock, set the output frame, and release the
