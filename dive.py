@@ -43,6 +43,10 @@ def id_class_name(class_id, classes):
 model = cv2.dnn.readNetFromTensorflow('models/frozen_inference_graph.pb',
                                       'models/ssd_mobilenet_v2_coco_2018_03_29.pbtxt')
 
+# initialize the ImageHub object
+import imagezmq
+imageHub = imagezmq.ImageHub()									  
+
 # initialize the output frame and a lock used to ensure thread-safe
 # exchanges of the output frames (useful for multiple browsers/tabs
 # are viewing tthe stream)
@@ -75,9 +79,16 @@ def detect_motion(frameCount):
 
 	# loop over frames from the video stream
 	while True:
-		# read the next frame from the video stream, resize it,
-		# convert the frame to grayscale, and blur it
+		# from camera
 		image = vs.read()
+		frame = image
+
+		# from stream
+		(rpiName, frame) = imageHub.recv_image()
+		imageHub.send_reply(b'OK')
+		image = frame
+
+		
 
 		image_height, image_width, _ = image.shape
 

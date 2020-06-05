@@ -71,8 +71,9 @@ while True:
 	(rpiName, frame) = imageHub.recv_image()
 	imageHub.send_reply(b'OK')
 
-        print("received")
-        continue
+	cv2.imwrite("received.jpg",frame)
+	print("received")
+	continue
 
 	# if a device is not in the last active dictionary then it means
 	# that its a newly connected device
